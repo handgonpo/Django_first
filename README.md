@@ -28,3 +28,5 @@ venv\Scripts\activate     # Windows
 ```bash
 pip install -r requirements.txt
 ```
+
+3. 수정
