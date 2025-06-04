@@ -74,3 +74,21 @@ def vote(request, question_id):
         selected_choice.votes = F("votes") + 1
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+
+from django.urls import reverse_lazy
+
+
+class QuestionCreateView(generic.CreateView):
+    model = Question
+    fields = ["question_text", "pub_date"]
+    template_neme = "polls/question_form.html"
+    success_url = reverse_lazy("polls:index")
+
+
+class QuestionUpdateView(generic.UpdateView):
+    pass
+
+
+class QuestionDeleteView(generic.DeleteView):
+    pass
