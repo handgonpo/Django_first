@@ -1,40 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
 from .models import Question, Choice
-from django.http import Http404
-
 from django.db.models import F
 from django.urls import reverse
 from django.views import generic
 from django.http import HttpResponseRedirect
-
-# def index(request):
-#     # return HttpResponse("Hello, world. You're at the polls index.")
-#     latest_question_list = Question.objects.order_by("-pub_date")[:5]
-#     context = {"latest_question_list": latest_question_list}
-#     return render(request, "polls/index.html", context)
-
-
-# def detail(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, "polls/detail.html", {"question": question})
-
-
-# def detail(request, question_id):
-#     try:
-#         question = Question.objects.get(pk=question_id)
-#     except Question.DoesNotExist:
-#         raise Http404("Question does not exist")
-#     return render(request, "polls/detail.html", {"question": question})
-
-
-# def results(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, "polls/results.html", {"question": question})
-
-
-# def vote(request, question_id):
-#     return HttpResponse(f"You're voting on question {question_id}.")
+from django.utils import timezone
 
 
 class IndexView(generic.ListView):
@@ -42,13 +12,18 @@ class IndexView(generic.ListView):
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
-        return Question.objects.order_by("-pub_date")[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by(
+            "-pub_date"
+        )[:5]
 
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
     context_object_name = "question"
+
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
@@ -84,7 +59,7 @@ from django.urls import reverse_lazy
 class QuestionCreateView(generic.CreateView):
     model = Question
     fields = ["question_text", "pub_date"]
-    template_neme = "polls/question_form.html"
+    template_name = "polls/question_form.html"
     success_url = reverse_lazy("polls:index")
 
 
@@ -92,7 +67,7 @@ class QuestionCreateView(generic.CreateView):
 class QuestionUpdateView(generic.UpdateView):
     model = Question
     fields = ["question_text", "pub_date"]
-    template_neme = "polls/question_form.html"
+    template_name = "polls/question_form.html"
     success_url = reverse_lazy("polls:index")
 
 

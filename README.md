@@ -1,3 +1,5 @@
+![Django CI](https://github.com/handgonpo/Django_first/actions/workflows/django.yml/badge.svg)
+
 # Django 공식 튜토리얼 따라하기
 
 이 프로젝트는 [Django 공식문서 튜토리얼](https://docs.djangoproject.com/ko/stable/intro/)을 기반으로 학습 목적으로 만든 웹 애플리케이션입니다.

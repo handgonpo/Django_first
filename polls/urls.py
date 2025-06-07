@@ -4,11 +4,7 @@ from . import views
 app_name = "polls"
 
 urlpatterns = [
-    # path("", views.index, name="index"),
-    # # 127.0.0.1:8000/polls/
-    # path("<int:question_id>/", views.detail, name="detail"),
-    # path("<int:question_id>/results/", views.results, name="results"),
-    # path("<int:question_id>/vote/", views.vote, name="vote"),
+
     # CBV URLs
     path("", views.IndexView.as_view(), name="index"),
     path("<int:pk>/", views.DetailView.as_view(), name="detail"),
@@ -16,10 +12,6 @@ urlpatterns = [
     path("<int:question_id>/vote/", views.vote, name="vote"),
     # CRUD URLs
     path("create/", views.QuestionCreateView.as_view(), name="question_create"),
-    path(
-        "<int:pk>/update/", views.QuestionUpdateView.as_view(), name="question_update"
-    ),
-    path(
-        "<int:pk>/delete/", views.QuestionDeleteView.as_view(), name="question_delete"
-    ),
+    path("<int:pk>/update/", views.QuestionUpdateView.as_view(), name="question_update"),
+    path("<int:pk>/delete/", views.QuestionDeleteView.as_view(), name="question_delete"),
 ]
