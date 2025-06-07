@@ -21,8 +21,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run migrations
-        run: |
-          python manage.py migrate
+        run: python manage.py migrate
+        working-directory: Django_first
 
       - name: Run tests
         run: |
