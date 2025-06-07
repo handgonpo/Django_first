@@ -7,11 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.12.3'
 
@@ -20,9 +18,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run migrations
+      - name: Make migrations
+        run: python manage.py makemigrations
+
+      - name: Migrate database
         run: python manage.py migrate
 
       - name: Run tests
         run: python manage.py test
-
