@@ -5,17 +5,13 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.10, 3.11, 3.12]  # ✅ Ubuntu 24.04에서 지원되는 버전만 선택
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.12.3'
 
       - name: Install dependencies
         run: |
@@ -23,10 +19,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make migrations
-        run: python manage.py makemigrations --noinput
+        run: python manage.py makemigrations
 
       - name: Migrate database
-        run: python manage.py migrate --noinput
+        run: python manage.py migrate
 
       - name: Run tests
         run: python manage.py test
