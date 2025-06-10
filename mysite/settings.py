@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "polls",
     "accounts",
+    "debug_toolbar",               
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware", 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -131,3 +133,7 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = "/polls/" # 로그인후 이동할 페이지
 LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

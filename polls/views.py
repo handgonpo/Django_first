@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.db.models import Count
 
 
 class IndexView(generic.ListView):
@@ -76,3 +77,8 @@ class QuestionDeleteView(generic.DeleteView):
     model = Question
     template_name = "polls/question_form_delete.html"
     success_url = reverse_lazy("polls:index")
+
+
+def question_list(request):
+    questions = Question.objects.annotate(num_choices=Count('choice'))
+    return render(request, "polls/question_list.html", {'questions': questions})
